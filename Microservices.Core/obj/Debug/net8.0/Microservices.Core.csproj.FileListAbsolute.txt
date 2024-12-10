@@ -1,0 +1,12 @@
+C:\Users\quassbottle\RiderProjects\Microservices.Users\Microservices.Core\bin\Debug\net8.0\Microservices.Core.deps.json
+C:\Users\quassbottle\RiderProjects\Microservices.Users\Microservices.Core\bin\Debug\net8.0\Microservices.Core.dll
+C:\Users\quassbottle\RiderProjects\Microservices.Users\Microservices.Core\bin\Debug\net8.0\Microservices.Core.pdb
+C:\Users\quassbottle\RiderProjects\Microservices.Users\Microservices.Core\obj\Debug\net8.0\Microservices.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\quassbottle\RiderProjects\Microservices.Users\Microservices.Core\obj\Debug\net8.0\Microservices.Core.AssemblyInfoInputs.cache
+C:\Users\quassbottle\RiderProjects\Microservices.Users\Microservices.Core\obj\Debug\net8.0\Microservices.Core.AssemblyInfo.cs
+C:\Users\quassbottle\RiderProjects\Microservices.Users\Microservices.Core\obj\Debug\net8.0\Microservices.Core.csproj.CoreCompileInputs.cache
+C:\Users\quassbottle\RiderProjects\Microservices.Users\Microservices.Core\obj\Debug\net8.0\Microservices.Core.dll
+C:\Users\quassbottle\RiderProjects\Microservices.Users\Microservices.Core\obj\Debug\net8.0\refint\Microservices.Core.dll
+C:\Users\quassbottle\RiderProjects\Microservices.Users\Microservices.Core\obj\Debug\net8.0\Microservices.Core.pdb
+C:\Users\quassbottle\RiderProjects\Microservices.Users\Microservices.Core\obj\Debug\net8.0\ref\Microservices.Core.dll
+C:\Users\quassbottle\RiderProjects\Microservices.Users\Microservices.Core\obj\Debug\net8.0\Microservices.Core.csproj.AssemblyReference.cache

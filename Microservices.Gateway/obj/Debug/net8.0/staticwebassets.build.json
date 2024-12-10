@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "z/Tr2Gg0mcMYSs+jD3ox4fzQGOQJUJ/aY7uewv/CXm8=",
+  "Source": "Microservices.Gateway",
+  "BasePath": "_content/Microservices.Gateway",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
