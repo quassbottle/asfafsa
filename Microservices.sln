@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microservices.Gateway", "Mi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microservices.E2E", "Microservices.E2E\Microservices.E2E.csproj", "{8D591265-8CDA-4B23-86BD-4EC62881C9BC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microservices.Languages.Tests", "Microservices.Languages.Tests\Microservices.Languages.Tests.csproj", "{2ECC53B6-4983-4A52-A0D2-ACC18BD1BC21}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{8D591265-8CDA-4B23-86BD-4EC62881C9BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8D591265-8CDA-4B23-86BD-4EC62881C9BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8D591265-8CDA-4B23-86BD-4EC62881C9BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2ECC53B6-4983-4A52-A0D2-ACC18BD1BC21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2ECC53B6-4983-4A52-A0D2-ACC18BD1BC21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2ECC53B6-4983-4A52-A0D2-ACC18BD1BC21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2ECC53B6-4983-4A52-A0D2-ACC18BD1BC21}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

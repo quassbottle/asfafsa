@@ -1,3 +1,4 @@
+using Confluent.Kafka;
 using MassTransit;
 using Microservices.Core.Messages.Languages;
 using Microservices.Core.Messages.Users;
@@ -23,6 +24,7 @@ public static class MassTransitExtensions
                 x.UsingKafka((context, k) =>
                 {
                     k.Host(configuration.GetSection("MassTransit")["KafkaEndpoint"]);
+                    k.SecurityProtocol = SecurityProtocol.Plaintext;
 
                     k.TopicEndpoint<OnLanguageCreatedMessage>("language.created", "object-service", e =>
                     {

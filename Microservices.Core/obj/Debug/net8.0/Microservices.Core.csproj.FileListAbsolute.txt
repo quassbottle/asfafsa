@@ -10,3 +10,4 @@ C:\Users\quassbottle\RiderProjects\Microservices.Users\Microservices.Core\obj\De
 C:\Users\quassbottle\RiderProjects\Microservices.Users\Microservices.Core\obj\Debug\net8.0\Microservices.Core.pdb
 C:\Users\quassbottle\RiderProjects\Microservices.Users\Microservices.Core\obj\Debug\net8.0\ref\Microservices.Core.dll
 C:\Users\quassbottle\RiderProjects\Microservices.Users\Microservices.Core\obj\Debug\net8.0\Microservices.Core.csproj.AssemblyReference.cache
+C:\Users\quassbottle\RiderProjects\Microservices.Users\Microservices.Core\obj\Debug\net8.0\Microservices.Core.sourcelink.json
