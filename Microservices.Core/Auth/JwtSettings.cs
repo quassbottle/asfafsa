@@ -43,17 +43,4 @@ public class JwtSettings(IConfiguration configuration)
             return int.Parse(jwt["TokenExpiresInHours"]!);
         }
     }
-
-    public int RefreshTokenExpiresAfterHours
-    {
-        get
-        {
-            var jwt = configuration.GetSection("Jwt");
-
-            if (jwt["RefreshTokenExpiresInHours"] is null)
-                throw new ArgumentException("Invalid Jwt RefreshTokenExpiresInHours");
-
-            return int.Parse(jwt["RefreshTokenExpiresInHours"]!);
-        }
-    }
 }
