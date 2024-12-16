@@ -42,3 +42,4 @@ C:\Users\quassbottle\RiderProjects\Microservices.Users\Microservices.Gateway\obj
 C:\Users\quassbottle\RiderProjects\Microservices.Users\Microservices.Gateway\obj\Debug\net8.0\Microservices.Gateway.pdb
 C:\Users\quassbottle\RiderProjects\Microservices.Users\Microservices.Gateway\obj\Debug\net8.0\Microservices.Gateway.genruntimeconfig.cache
 C:\Users\quassbottle\RiderProjects\Microservices.Users\Microservices.Gateway\obj\Debug\net8.0\ref\Microservices.Gateway.dll
+C:\Users\quassbottle\RiderProjects\Microservices.Users\Microservices.Gateway\obj\Debug\net8.0\Microservices.Gateway.sourcelink.json

@@ -1,0 +1,170 @@
+### GET /api/user
+GET {{gateway}}/api/user
+
+> {%
+    client.test("GET /api/user executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.test("Response content-type is application/json", function() {
+        const type = response.contentType.mimeType;
+        client.assert(type === "application/json", `Expected 'application/json' but received '${type}'`);
+    });
+%}
+
+### POST /api/user
+POST {{gateway}}/api/user
+Content-Type: application/json
+
+{
+  "username": "johndoe",
+  "password": "test1234"
+}
+
+> {%
+    client.test("POST /api/user executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.test("Response body contains token and expiresAt", function() {
+        const body = response.body;
+        client.assert(body.hasOwnProperty("token") && body.hasOwnProperty("expiresAt"), "Response body does not contain 'token' or 'expiresAt'");
+    });
+%}
+
+### POST /api/user/login (valid password)
+POST {{gateway}}/api/user/login
+Content-Type: application/json
+
+{
+  "username": "johndoe",
+  "password": "test1234"
+}
+
+> {%
+    client.test("POST /api/user/login executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.test("Response body contains token", function() {
+        const body = response.body;
+
+        if (body.hasOwnProperty('token')) {
+            client.global.set('token', body.token);
+        }
+
+        client.assert(body.hasOwnProperty("token"), "Response body does not contain 'token'");
+    });
+%}
+
+### POST /api/user/login (invalid password)
+POST {{gateway}}/api/user/login
+Content-Type: application/json
+
+{
+  "username": "johndoe",
+  "password": "test12345"
+}
+
+> {%
+    client.test("POST /api/user/login executed with an error", function() {
+        client.assert(response.status === 403, "Response status is not 403");
+    });
+
+    client.test("Response body contains an error message", function() {
+        const body = response.body;
+        client.assert(!!body.message && body.message === 'Bad password', "Response body does not contain valid error message");
+    });
+%}
+
+### GET /api/user/me (authorized)
+GET {{gateway}}/api/user/me
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+> {%
+    client.test("GET /api/user/me executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.test("Response body contains the user data", function() {
+        const body = response.body;
+        const responseIsValid = !!body.username && !!body.id && !!body.languages;
+        
+        if (responseIsValid) {
+            client.global.set('userId', body.id);
+            client.global.set('username', body.username);
+        }
+        
+        client.assert(responseIsValid, "Response body does not contain valid error message");
+    });
+%}
+
+### PUT /api/user/{id} (unauthorized)
+PUT {{gateway}}/api/user/1
+Content-Type: application/json
+
+{
+  "password": "newpassword"
+}
+
+> {%
+    client.test("PUT /api/user/{id} responded with error 403", function() {
+        client.assert(response.status === 403, "Response status is not 403");
+    });
+
+    client.test("Response body contains error message", function() {
+        const body = response.body;
+        client.assert(body.message === "Unauthorized", `Expected 'Unauthorized', but got '${body.message}'`);
+    });
+%}
+
+### PUT /api/user/{id} (authorized)
+< {% 
+  request.variables.set('userId', client.global.get('userId'))
+ %}
+PUT {{gateway}}/api/user/{{userId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "password": "newpassword"
+}
+
+> {%
+    client.test("PUT /api/user/{id} executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.test("Response body contains success message", function() {
+        const body = response.body;
+        const responseIsValid = !!body.username && !!body.id && !!body.languages;
+
+        client.assert(responseIsValid, "Response body does not contain the updated user's data");
+    });
+%}
+
+
+
+### Тест на успешный GET запрос к /api/language
+GET {{gateway}}/api/language
+
+> {%
+    client.test("GET /api/language executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.test("Response body contains languages array", function() {
+        const body = JSON.parse(response.body);
+        client.assert(Array.isArray(body.languages), "Response body does not contain 'languages' array");
+    });
+%}
+
+### Тест на успешный DELETE запрос к /api/language/{id}
+DELETE {{gateway}}/api/language/1
+
+> {%
+    client.test("DELETE /api/language/{id} executed successfully", function() {
+        client.assert(response.status === 204, "Response status is not 204");
+    });
+%}
