@@ -1,3 +1,25 @@
+### DELETE /api/language/ (drop)
+DELETE {{gateway}}/api/language/
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+> {%
+    client.test("DELETE /api/language/{id} executed with status 200", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+
+### DELETE /api/user/ (drop)
+DELETE {{gateway}}/api/language/
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+> {%
+    client.test("DELETE /api/language/{id} executed with status 200", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+
 ### GET /api/user
 GET {{gateway}}/api/user
 
@@ -67,7 +89,7 @@ Content-Type: application/json
 }
 
 > {%
-    client.test("POST /api/user/login executed with an error", function() {
+    client.test("POST /api/user/login executed with status 403", function() {
         client.assert(response.status === 403, "Response status is not 403");
     });
 
@@ -109,7 +131,7 @@ Content-Type: application/json
 }
 
 > {%
-    client.test("PUT /api/user/{id} responded with error 403", function() {
+    client.test("PUT /api/user/{id} responded with status 403", function() {
         client.assert(response.status === 403, "Response status is not 403");
     });
 
@@ -145,26 +167,194 @@ Authorization: Bearer {{token}}
 %}
 
 
-
-### Тест на успешный GET запрос к /api/language
+### GET /api/language (all languages)
 GET {{gateway}}/api/language
+Content-Type: application/json
 
 > {%
     client.test("GET /api/language executed successfully", function() {
         client.assert(response.status === 200, "Response status is not 200");
     });
 
-    client.test("Response body contains languages array", function() {
-        const body = JSON.parse(response.body);
-        client.assert(Array.isArray(body.languages), "Response body does not contain 'languages' array");
+    client.test("Response body contains an array of languages", function() {
+        const body = response.body;
+        client.assert(Array.isArray(body), "Response body is not an array");
     });
 %}
 
-### Тест на успешный DELETE запрос к /api/language/{id}
-DELETE {{gateway}}/api/language/1
+### POST /api/language (create language)
+POST {{gateway}}/api/language
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "French",
+  "description": "French language",
+  "lengthOfCourse": 1,
+  "userId": {{userId}}
+}
+
+> {%
+    client.test("POST /api/language executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.test("Response body contains the created language data", function() {
+        const body = response.body;
+        
+        const responseIsValid = !!body.id &&
+            body.name === "French" &&
+            body.description === "French language" &&
+            body.lenghtOfCourse === 1 &&
+            body.userId === Number(client.global.get("userId")) &&
+            body.status === null;
+
+        if (responseIsValid) {
+            client.global.set('languageId', body.id);
+        }
+
+        client.assert(responseIsValid, "Response body does not contain the created language data");
+    });
+%}
+
+### POST /api/language (language already exists)
+POST {{gateway}}/api/language
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "French",
+  "description": "French language",
+  "lengthOfCourse": 1,
+  "userId": {{userId}}
+}
+
+> {%
+    client.test("POST /api/language executed with status 400", function() {
+        client.assert(response.status === 400, "Response status is not 400");
+    });
+
+    client.test("Response body contains the error message", function() {
+        const body = response.body;
+
+        client.assert(!!body.message && body.message === 'Such language already exists', "Response body does not contain the valid error message");
+    });
+%}
+
+### GET /api/language/{id} (get language by ID)
+GET {{gateway}}/api/language/{{languageId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+> {%
+    client.test("GET /api/language/{id} executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.test("Response body contains the correct language data", function() {
+        const body = response.body;
+        client.assert(body.id === Number(client.global.get('languageId')), "Response body does not match the requested language ID");
+    });
+%}
+
+### GET /api/language/{id} (language not found)
+GET {{gateway}}/api/language/{{$random.integer(99999, 999999)}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+> {%
+    client.test("GET /api/language/{id} executed with status 404", function() {
+        client.assert(response.status === 404, "Response status is not 404");
+    });
+
+    client.test("Response body contains the correct error message", function() {
+        const body = response.body;
+
+        client.assert(!!body.message && body.message === 'Language not found', "Response body does not contain the valid error message");
+    });
+%}
+
+### PUT /api/language/{id} (update language)
+PUT {{gateway}}/api/language/{{languageId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "French2",
+  "description": "French2 language",
+  "lengthOfCourse": 2
+}
+
+> {%
+    client.test("PUT /api/language/{id} executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.test("Response body contains the updated language data", function() {
+        const body = response.body;
+        
+        const responseIsValid = !!body.id &&
+            body.name === "French2" &&
+            body.description === "French2 language" &&
+            body.lenghtOfCourse === 2 &&
+            body.userId === Number(client.global.get("userId")) &&
+            !!body.status;
+
+        client.assert(responseIsValid, "Response body does not contain the updated language data");
+    });
+%}
+
+### PUT /api/language/{id} (language not found)
+PUT {{gateway}}/api/language/{{$random.integer(99999, 999999)}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "French2",
+  "description": "French2 language",
+  "lengthOfCourse": 2
+}
+
+> {%
+    client.test("PUT /api/language/{id} executed with status 404", function() {
+        client.assert(response.status === 404, "Response status is not 404");
+    });
+
+    client.test("Response body contains the correct error message", function() {
+        const body = response.body;
+
+        client.assert(!!body.message && body.message === 'Language not found', "Response body does not contain the valid error message");
+    });
+%}
+
+### DELETE /api/language/{id} (delete language)
+DELETE {{gateway}}/api/language/{{languageId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
 
 > {%
     client.test("DELETE /api/language/{id} executed successfully", function() {
-        client.assert(response.status === 204, "Response status is not 204");
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.test("Language was successfully deleted", function() {
+        client.assert(!!response.body, "Response body is valid");
+    });
+%}
+
+### DELETE /api/language/{id} (language not found)
+DELETE {{gateway}}/api/language/{{$random.integer(99999, 999999)}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+> {%
+    client.test("DELETE /api/language/{id} executed with status 404", function() {
+        client.assert(response.status === 404, "Response status is not 404");
+    });
+
+    client.test("Response body contains the correct error message", function() {
+        const body = response.body;
+
+        client.assert(!!body.message && body.message === 'Language not found', "Response body does not contain the valid error message");
     });
 %}

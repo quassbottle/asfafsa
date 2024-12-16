@@ -22,7 +22,7 @@ public class LanguageServiceTest(LanguageServiceServiceProviderFixture languageS
         {
             var result = await _languageService.CreateAsync(new LanguageCreateDTO
             {
-                LenghtOfCourse = 0, Name = Guid.NewGuid().ToString(), UserId = 1
+                LengthOfCourse = 0, Name = Guid.NewGuid().ToString(), UserId = 1
             });
             
             ids.Add(result.Id);

@@ -42,7 +42,7 @@ public class LanguageService(DataContext context, ITopicProducer<OnLanguageCreat
         
         var candidate = await context.Languages.AddAsync(new LanguageEntity
         {
-            Description = dto.Description, Name = dto.Name, LenghtOfCourse = dto.LenghtOfCourse, UserId = dto.UserId
+            Description = dto.Description, Name = dto.Name, LenghtOfCourse = dto.LengthOfCourse, UserId = dto.UserId
         });
         
         await context.SaveChangesAsync();
@@ -65,7 +65,7 @@ public class LanguageService(DataContext context, ITopicProducer<OnLanguageCreat
         await AssertRepeatingLanguageNameAsync(dto.Name);
         
         candidate.Description = dto.Description;
-        candidate.LenghtOfCourse = dto.LenghtOfCourse;
+        candidate.LenghtOfCourse = dto.LengthOfCourse;
         candidate.Name = dto.Name;
 
         await context.SaveChangesAsync();

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Microservices.Languages")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3b4df6c35367e079da3b20f69c9df6842e46bd63")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e8f3ec3c4e4b3d659522cf5aad45edbce026402f")]
 [assembly: System.Reflection.AssemblyProductAttribute("Microservices.Languages")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Microservices.Languages")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
